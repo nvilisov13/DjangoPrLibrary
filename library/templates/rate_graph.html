@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='ru'>
+<head>
+    <meta charset='utf-8'/>
+    <title>Рейтинг книги</title>
+    {% load static %}
+    <link rel='icon' type='image/x-icon' href="{% static 'images/books.ico' %}">
+    <script type="text/javascript" src="{% static 'js/dygraph.js' %}"></script>
+    <link rel='stylesheet' type='text/css' href="{% static 'style/dygraph.css' %}"/>
+    <link rel='stylesheet' type='text/css' href="{% static 'style/main.css' %}"/>
+    <link rel='stylesheet' type='text/css' href="{% static 'style/graph.css' %}"/>
+</head>
+<body>
+{% block content%}
+<h1>{{ book.name }}</h1>
+<br>
+<script type="application/javascript">
+    // минимальное время показа анимации
+    const timeout = 1000;
+</script>
+<div id="graphdiv"><img src="{% static 'images/loading.gif' %}"></div>
+{% if mark_book.count > 0 %}
+<div id="all_marks">
+    <table>
+        <thead>
+        <td>Дата оценки</td>
+        <td>Оценка</td>
+        </thead>
+        {% for marks_book in mark_book %}
+        <tr>
+            <td>{{ marks_book.date_issue|date:'SHORT_DATE_FORMAT' }}</td>
+            <td>{{ marks_book.mark }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<script type="text/javascript">
+    setTimeout(function () {
+        Dygraph.onDOMready(function onDOMready() {
+            g = new Dygraph(
+                document.getElementById("graphdiv"),
+                "Дата,Оценка\n" +
+                "{% for marks_book in mark_book %}" +
+                "{{ marks_book.date_issue|date:'SHORT_DATE_FORMAT' }},{{ marks_book.mark }}\n" +
+                "{% endfor %}"
+            );
+        });
+    }, timeout);
+</script>
+
+{% else %}
+<script type="text/javascript">
+    setTimeout(function () {
+        document.getElementById("graphdiv").outerHTML = "<h1 style='padding-top: 15%'>Нет данных!!!</h1>";
+    }, timeout);
+</script>
+{% endif %}
+{% endblock content %}
+
+</body>
+</html>

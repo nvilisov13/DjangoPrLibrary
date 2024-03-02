@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Авторы{% endblock title %}
+{% block header %}Просмотр авторов книг{% endblock header %}
+
+{% block content%}
+{% if books_author.count > 0 %}
+<table>
+    <thead><th>ID</th><th>Имя</th><th>Фамилия (Автор+его книги)</th></thead>
+    {% for books_authors_data in books_author %}
+        <tr>
+            <td class='al_cnt'>{{ books_authors_data.id }}</td>
+            <td><a href='drf_authors_book/{{ books_authors_data.id }}' target='_blank'>
+                {{ books_authors_data.first_name }}</a></td>
+            <td><a href='drf_author_books/{{ books_authors_data.id }}' target='_blank'>
+                {{ books_authors_data.last_name }}</a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock content %}

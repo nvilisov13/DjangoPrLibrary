@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Оценки{% endblock title %}
+{% block header %}Оценки Книгам{% endblock header %}
+
+{% block content%}
+{% if marks_books.count > 0 %}
+<table>
+    <thead><th>ID</th><th>Оценка</th><th>Дата выставления</th><th>Читатель</th><th>Книга</th></thead>
+    {% for marks_books_data in marks_books %}
+        <tr>
+            <td class='al_cnt'>{{ marks_books_data.id }}</td>
+            <td><a href='drf_marks_book/{{ marks_books_data.id }}' target='_blank'>{{ marks_books_data.book_id }}</a>
+            </td>
+            <td>{{ marks_books_data.date_issue }}</td>
+            <td>{{ marks_books_data.reader_id }}</td>
+            <td>{{ marks_books_data.book_id }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock content %}

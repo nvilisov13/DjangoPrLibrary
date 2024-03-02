@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Связь{% endblock title %}
+{% block header %}Связь Читатели и Книги{% endblock header %}
+
+{% block content%}
+{% if books_readers.count > 0 %}
+<table>
+    <thead><th>ID</th><th>Книга на руках</th><th>Читатель</th></thead>
+    {% for books_readers_data in books_readers %}
+        <tr>
+            <td class='al_cnt'>{{ books_readers_data.id }}</td>
+            <td><a href='drf_books_reader/{{ books_readers_data.id }}' target='_blank'>{{ books_readers_data.book_id }}
+            </a></td>
+            <td>{{ books_readers_data.reader_id }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock content %}

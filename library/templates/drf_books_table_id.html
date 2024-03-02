@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Книги{% endblock title %}
+{% block header %}Просмотр книг{% endblock header %}
+
+{% block content%}
+{% if books.count > 0 %}
+<table>
+    <thead><th>ID</th><th>Название</th><th>Описание</th><th>Автор ID</th></thead>
+    {% for books_data in books %}
+        <tr>
+            <td class='al_cnt'>{{ books_data.id }}</td>
+            <td><a href='drf_book/{{ books_data.id }}' target='_blank'>{{ books_data.name }}</a></td>
+            <td>{{ books_data.description }}</td>
+            <td class='al_cnt'>{{ books_data.author_id }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock content %}

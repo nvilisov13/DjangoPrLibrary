@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Редактирование{% endblock title %}
+{% block header %}Возникла ошибка при удалении автора книги из Базы Данных{% endblock header %}
+
+{% block content %}
+<h3>Список авторов книг доступных для удаления из Базы Данных у которых нету книг:</h3>
+<form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <p>
+        <label>Выберите авторов для удаления:</label>
+        <select id="sel_authors" multiple="multiple" name="authors[]" onchange="list_authors()" size="10">
+        {% for books_authors in books_author %}
+            <option value="{{ books_authors.id }}">{{ books_authors.first_name }} {{ books_authors.last_name }}
+            </option>
+        {% endfor %}
+        </select>
+        <input type="submit" value="&emsp;&ensp; Внести изменения &emsp;&ensp;">
+
+    </p>
+    </fieldset>
+</form>
+<p>ID выбранных авторов:</p>
+<div id="val_selected">==========================</div>
+<script type="application/javascript">
+    const selected_authors = document.getElementById('sel_authors');
+    const val_select = document.getElementById('val_selected');
+    function list_authors(){
+        var list_sel = '', i = 0;
+        for (; i < selected_authors.selectedOptions.length; i++)
+            if (selected_authors.selectedOptions)
+                list_sel += ' || ' + selected_authors.selectedOptions[i].value;
+        val_select.textContent = list_sel;
+    }
+</script>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Читатели{% endblock title %}
+{% block header %}Полный список читателей{% endblock header %}
+
+{% block content%}
+{% if reader.count > 0 %}
+<form method="POST">
+{% csrf_token %}
+<table>
+    <thead><th>ID</th><th>Читатель</th><th>Телефон</th><th>Удалить</th></thead>
+    {% for readers_data in reader %}
+        <tr>
+            <td class='al_cnt'>{{ readers_data.id }}</td>
+            <td><a href='reader_change.html?reader_id={{ readers_data.id }}' title='Редактирование читателя'
+                   target='_blank'>{{ readers_data.first_name }} {{ readers_data.last_name }}</a></td>
+            <td>{{ readers_data.phone }}</td>
+            <td class='al_cnt'><button type="submit" name="del_reader" value="{{ readers_data.id }}"
+                                       title="Нажмите для удаления ID - {{ readers_data.id }}">&ensp;&nbsp;&#10060;&ensp;&nbsp;</button>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+</form>
+{% endif %}
+{% endblock content %}

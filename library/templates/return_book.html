@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Возврат{% endblock title %}
+{% block header %}Возврат книги{% endblock header %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <p>
+    <legend>Поставьте оценку возвращаемой книге:</legend>
+        <input type="radio" id="no_mark" name="mark" value="0" checked/>
+        <label for="no_mark">- Без оценки &emsp;&ensp;</label>
+        <input type="radio" id="mark_1" name="mark" value="1"/>
+        <label for="mark_1">- 1</label>
+        <input type="radio" id="mark_2" name="mark" value="2"/>
+        <label for="mark_2">- 2</label>
+        <input type="radio" id="mark_3" name="mark" value="3"/>
+        <label for="mark_3">- 3</label>
+        <input type="radio" id="mark_4" name="mark" value="4"/>
+        <label for="mark_4">- 4</label>
+        <input type="radio" id="mark_5" name="mark" value="5"/>
+        <label for="mark_5">- 5</label>
+
+        <legend>Вернуть книгу:</legend>
+        <select name="book_id">
+            {% for books_data in book %}
+                <option value="{{ books_data.book_id }}">{{ books_data.book.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="&emsp;&ensp; Вернуть книгу &emsp;&ensp;">
+    </p>
+    </fieldset>
+</form>
+{% endblock content %}

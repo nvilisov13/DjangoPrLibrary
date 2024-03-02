@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Редактирование{% endblock title %}
+{% block header %}Редактирование читателя{% endblock header %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <p>
+        <legend>Редактирование читателя книг: Читатель ID: {{ reader_sel.id }}</legend>
+            <label>Отредактируйте имя читателя:</label>
+            <input type="text" value="{{ reader_sel.first_name }}" placeholder="Введите имя читателя"
+                   name="first_name"/>
+            <label>Отредактируйте фамилию читателя:</label>
+            <input type="text" value="{{ reader_sel.last_name }}" placeholder="Введите фамилию автора"
+                   name="last_name"/>
+            <label>Отредактируйте номер телефона читателя:</label>
+            <input type="tel" value="{{ reader_sel.phone }}" placeholder="Введите номер телефона читателя"
+                   name="phone"/>
+            <input type="submit" value="&emsp;&ensp; Внести изменения &emsp;&ensp;">
+    </p>
+    </fieldset>
+</form>
+{% endblock content %}

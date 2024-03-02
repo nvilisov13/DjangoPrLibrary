@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock title %}
+{% block header %}
+    <h1>Главная страница</h1>
+    <ul>
+        <li><a href="/admin" title="Django Admin">Админка Django</a></li>
+        <li><a href="/drf_authors_book" target="_blank" title="Django Rest Framework All Models Books Authors">
+            DRF Авторы книг все</a></li>
+        <li><a href="drf_books_authors_table_id.html" target="_blank"
+               title="Django Rest Framework Table ID Models Books Authors">DRF Авторы книг таблица переход по ID</a>
+        </li>
+        <li><a href="/drf_book" target="_blank" title="Django Rest Framework All Models Books">DRF Книги все</a></li>
+        <li><a href="drf_books_table_id.html" target="_blank" title="Django Rest Framework Table ID Models Books">
+            DRF Книги таблица переход по ID</a></li>
+        <li><a href="/drf_reader" target="_blank" title="Django Rest Framework All Models Readers">DRF Читатели все</a>
+        </li>
+        <li><a href="drf_readers_table_id.html" target="_blank" title="Django Rest Framework Table ID Models Readers">
+            DRF Читатели таблица переход по ID</a></li>
+        <li><a href="/drf_books_reader" target="_blank" title="Django Rest Framework All Models BooksReaders">
+            DRF Связь Книга и её Читатель все</a></li>
+        <li><a href="drf_books_readers_table_id.html" target="_blank"
+               title="Django Rest Framework Table ID Models BooksReaders">
+            DRF Связь Книга и её Читатель таблица переход по ID</a></li>
+        <li><a href="/drf_marks_book" target="_blank" title="Django Rest Framework All Models MarksBooks">
+            DRF Оценки Книгам все</a></li>
+        <li><a href="drf_marks_books_table_id.html" target="_blank"
+               title="Django Rest Framework Table ID Models MarksBooks">DRF Оценки Книгам таблица переход по ID</a>
+        </li>
+        <li><a href="swagger/" target="_blank" title="Django Rest Framework Swagger">DRF Swagger Library</a></li>
+        <li><a href="redoc/" target="_blank" title="Django Rest Framework Swagger">DRF Redoc Library</a></li>
+        <li><a href="/drf_author_books" target="_blank" title="Django Rest Framework All Models Author Books">
+            DRF Автор + его книги все</a></li>
+        <li>Поиск по автору или названию книги: <input type="text" id="search_field">
+            <button onclick="search_author_books()">&#8194; Поиск &#128269; &#8194;</button></li>
+    </ul>
+<script type="application/javascript">
+    function search_author_books() {
+        window.open('drf_author_books/?search=' + document.getElementById('search_field').value, '_blank')
+    }
+    document.getElementById('search_field').addEventListener('keydown', function (event){
+        if (event.key === 'Enter') search_author_books()
+    })
+</script>
+{% endblock header %}

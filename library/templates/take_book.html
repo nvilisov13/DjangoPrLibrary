@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Взять{% endblock title %}
+{% block header %}Взять книгу{% endblock header %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <p>
+        <legend>Взять книгу:</legend>
+        <label>Выберите книгу: </label>
+        <select name="book_id">
+            {% for books_data in book %}
+                <option value="{{ books_data.id }}">{{ books_data.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Выберите читателя: </label>
+        <select name="reader_id">
+            {% for readers_data in reader %}
+                <option value="{{ readers_data.id }}">{{ readers_data.first_name }} {{ readers_data.last_name }}
+                </option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="&emsp;&ensp; Взять книгу &emsp;&ensp;">
+    </p>
+    </fieldset>
+</form>
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Читатели{% endblock title %}
+{% block header %}Читатели книг{% endblock header %}
+
+{% block content%}
+{% if readers.count > 0 %}
+<table>
+    <thead><th>ID</th><th>Имя</th><th>Фамилия</th><th>Телефон</th></thead>
+    {% for readers_data in readers %}
+        <tr>
+            <td class='al_cnt'>{{ readers_data.id }}</td>
+            <td><a href='drf_reader/{{ readers_data.id }}' target='_blank'>{{ readers_data.first_name }}</a></td>
+            <td>{{ readers_data.last_name }}</td>
+            <td>{{ readers_data.phone }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock content %}

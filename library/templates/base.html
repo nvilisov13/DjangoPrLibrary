@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='ru'>
+<head>
+    <meta charset='utf-8' />
+    <title>{% block title %}Библиотека{% endblock title %}</title>
+    {% load static %}
+    <link rel='icon' type='image/x-icon' href="{% static 'images/books.ico' %}">
+    <link rel='stylesheet' type='text/css' href="{% static 'style/main.css' %}"/>
+</head>
+<body>
+    <div id="main_menu">|
+        | <a href='/'>Главная страница</a> |
+        | <a href='/views_all_books'>Просмотреть книги</a> |
+        | <a href='/add_authors'>Добавить автора</a> |
+        | <a href='/add_books'>Добавить книги</a> |
+        | <a href='/add_readers'>Записать читателя</a> |
+        | <a href='/take_book'>Взять книгу</a> |
+        | <a href='/return_book'>Вернуть книгу</a> ||
+    </div>
+    {% if user.is_authenticated %}
+        <p><b>{{user.username}}</b> |
+            <a href="{% url 'logout' %}">&nbsp; &#10062; Выйти</a></p>
+    {% else %}
+        <p><a href="{% url 'login' %}">&nbsp; &#9989; Войти</a></p>
+    {% endif %}
+    <h1>{% block header %}{% endblock header %}</h1>
+    {% block content%}{% endblock content %}
+    <div id="date">{% now 'j F Y' %}</div>
+</body>
+</html>

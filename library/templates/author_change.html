@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Редактирование{% endblock title %}
+{% block header %}Редактирование, удаление автора{% endblock header %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <p>
+        <legend>Редактирование автора книг: Автор ID: {{ books_author.id }}</legend>
+            <label>Отредактируйте имя автора:</label>
+            <input type="text" value="{{ books_author.first_name }}" placeholder="Введите имя автора" name="first_name"
+                   class="author_input" id="first_name"/>
+            <label>Отредактируйте фамилию автора:</label>
+            <input type="text" value="{{ books_author.last_name }}" placeholder="Введите фамилию автора"
+                   name="last_name" class="author_input" id="last_name"/>
+            <input type="submit" value="&emsp;&ensp; Внести изменения &emsp;&ensp;">
+            <br>
+            <label>Удалить автора: <input type="checkbox" name="del_author" id="del_author"
+                                          onchange="check_del_author()"></label>
+
+<script type="application/javascript">
+const in_f_name = document.querySelector('#first_name'), in_l_name = document.querySelector('#last_name');
+const in_f_name_val = in_f_name.value, in_l_name_val = in_l_name.value;
+function check_del_author() {
+    if(document.querySelector('#del_author').checked){
+        in_f_name.setAttribute('disabled', 'disabled');
+        in_l_name.setAttribute('disabled', 'disabled');
+        // если поле ввода оказалось чистым возвращаем предыдущее значение
+        if(in_f_name.value === '') in_f_name.value = in_f_name_val;
+        if(in_l_name.value === '') in_l_name.value = in_l_name_val;
+        alert('Запись о данном авторе будет удалена из Базы Данных после нажатия кнопки -> Внести изменения!!!');
+    } else {
+        in_f_name.removeAttribute('disabled');
+        in_l_name.removeAttribute('disabled');
+    }
+}
+</script>
+    </p>
+    </fieldset>
+</form>
+{% endblock content %}

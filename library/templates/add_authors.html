@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Добавить{% endblock title %}
+{% block header %}Добавить автора{% endblock header %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <p>
+        <legend>Добавить автора книг:</legend>
+            <label>Введите имя автора:</label>
+            <input type="text" name="first_name"/>
+            <label>Введите фамилию автора:</label>
+            <input type="text" name="last_name"/>
+            <input type="submit" value="&emsp;&ensp; Добавить автора &emsp;&ensp;">
+    </p>
+    </fieldset>
+</form>
+{% endblock content %}

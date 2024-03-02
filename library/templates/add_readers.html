@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Добавить{% endblock title %}
+{% block header %}Добавить читателя{% endblock header %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <p>
+        <legend>Добавить читателя книг:</legend>
+            <label>Введите имя читателя:</label>
+            <input type="text" name="first_name"/>
+            <label>Введите фамилию читателя:</label>
+            <input type="text" name="last_name"/>
+            <br>
+            <label>Телефон:</label>
+            <input type="tel" name="telephone"/>
+            <input type="submit" value="&emsp;&ensp; Добавить читателя &emsp;&ensp;">
+            <br>
+            <a href="views_all_readers.html">Просмотреть полный список читателей</a>
+    </p>
+    </fieldset>
+</form>
+{% endblock content %}

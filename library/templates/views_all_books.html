@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Книги{% endblock title %}
+{% block header %}Просмотр книг{% endblock header %}
+
+{% block content%}
+{% if books.count > 0 %}
+<table>
+    <thead><th>ID</th><th>Автор</th><th>Название</th><th>Описание</th><th>Оценка</th></thead>
+    {% for books_data in books %}
+        <tr>
+            <td class='al_cnt'>{{ books_data.id }}</td>
+            <td><a href='author_change.html?author_id={{ books_data.author__id }}'
+                   title='Редактирование, удаление автора' target='_blank'>
+                {{ books_data.author__first_name }} {{ books_data.author__last_name }}</a></td>
+            <td><a href='book_change.html?book_id={{ books_data.id }}' title='Редактирование, удаление книги'
+                   target='_blank'>{{ books_data.name }}</a></td>
+            <td>{{ books_data.description }}</td>
+            <td class='al_cnt'><a href='rate_graph.html?book_id={{ books_data.id }}'
+                                  title='Для просмотра рейтинга нажмите' target='_blank'>{{ books_data.avg_mark }}</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Редактирование{% endblock title %}
+{% block header %}Редактирование, удаление книги{% endblock header %}
+
+{% block content %}
+<p>Автор текущей книги помечен *</p>
+<form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <p>
+        <legend>Редактирование информации о книге: Книга ID: {{ books.id }}</legend>
+            <label>Отредактируйте имя книги:</label>
+            <input type="text" value="{{ books.name }}" placeholder="Введите имя книги" name="book_name"
+                   class="book_input" id="book_name"/>
+            <label for="book_desc">Отредактируйте описание книги:</label>
+            <textarea placeholder="Введите описание книги" name="book_desc" class="book_input" id="book_desc">
+                {{ books.description }}</textarea>
+            <label>Выберите автора книги:&emsp;&ensp;</label>
+            <select name="author_sel" class="book_input" id="sel_author">
+                <!-- Текущего автора книги выводим первым в списке -->
+                    <option value="{{ books.author_id }}">
+                        * {{ books.author.first_name }} {{ books.author.last_name }} *</option>
+                {% for authors in books_authors %}
+                    <option value="{{ authors.id }}">{{ authors.first_name }} {{ authors.last_name }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label>Удалить книгу: <input type="checkbox" name="del_book" id="del_book" onchange="check_del_book()">
+                &emsp;&ensp;</label>
+            <input type="submit" value="&emsp;&ensp; Внести изменения &emsp;&ensp;">
+
+<script type="application/javascript">
+const in_b_name = document.querySelector('#book_name'), d_text = document.querySelector('#book_desc'),
+    s_author = document.querySelector('#sel_author');
+const in_b_name_val = in_b_name.value;
+function check_del_book() {
+    if(document.querySelector('#del_book').checked){
+        in_b_name.setAttribute('disabled', 'disabled');
+        d_text.setAttribute('disabled', 'disabled');
+        s_author.setAttribute('disabled', 'disabled');
+        // если поле ввода оказалось чистым возвращаем предыдущее значение
+        if(in_b_name.value === '') in_b_name.value = in_b_name_val;
+        alert('Запись о данной книге будет удалена из Базы Данных, а также её оценка после нажатия кнопки -> ' +
+            'Внести изменения!!!');
+    } else {
+        in_b_name.removeAttribute('disabled');
+        d_text.removeAttribute('disabled');
+        s_author.removeAttribute('disabled');
+    }
+}
+</script>
+    </p>
+    </fieldset>
+</form>
+{% endblock content %}
